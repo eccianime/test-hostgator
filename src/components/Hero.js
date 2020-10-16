@@ -20,7 +20,11 @@ const CenterText = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0px 25px
+    margin: 0px 15px;
+
+    @media (min-width: 321px ){
+        margin: 0px 25px
+    }
 `
 
 const MinorTitle = styled.div`
@@ -54,6 +58,10 @@ const Image = styled.img`
     }
 `
 
+const List = styled.ul`
+
+`
+
 function Hero() {
 	return (
         <Container>
@@ -61,6 +69,11 @@ function Hero() {
             <CenterText>
                 <MinorTitle>Hospedagem de Sites</MinorTitle>
                 <Title>Tenha uma hospedagem de sites estável e evite perder visitantes diariamente</Title>
+                <List>
+                    <li>99,9% de disponibilidade: seu site sempre no ar</li>
+                    <li>Suporte 24h, todos os dias</li>
+                    <li>Painel de Controle cPanel</li>
+                </List>
             </CenterText>
             <Image src={guy} alt="HostGator Right Guy" />
         </Container>
