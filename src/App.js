@@ -6,8 +6,8 @@ import Hero from './components/Hero';
 function App() {
 	return (
 		<>
-		<Header />
-		<Hero />
+			<Header />
+			<Hero />
 		</>
 	);
 }

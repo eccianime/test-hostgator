@@ -3,12 +3,15 @@ import styled from 'styled-components';
 
 import desk from '../assets/images/desk.png';
 import guy from '../assets/images/guy.png';
+import checkIcon from '../assets/icons/check.png';
 import colors from '../common/colors';
 
+
 const Container = styled.div`
-    background-color: ${colors.blue};
+    background-image: linear-gradient( to bottom, ${colors.blue} 0%, ${colors.blue} 80%, ${colors.skyblue} 81%, ${colors.skyblue} 100% ) ;
     display: flex;
-    justiFy-content: space-around;
+    flex: 1;
+    justiFy-content: space-between;
     padding-top: 32.5px;
 
     @media (min-width: 321px ){
@@ -17,6 +20,7 @@ const Container = styled.div`
 `
 
 const CenterText = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,32 +54,56 @@ const Title = styled.div`
     }
 `
 
-const Image = styled.img`
-    margin: 0px 25px;
+const ImageContainer = styled.div`
+    flex: 1;
+    padding: 0px 25px;
+    object-fit: contain;
 
     @media (max-width: 768px ){
         display: none
     }
 `
 
-const List = styled.ul`
+const ListContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0px 20px;
 
+    div {
+        font-size: 16px;
+        background-image: url('${checkIcon}');
+        padding-left: 25px;
+        background-repeat: no-repeat;
+        color: ${colors.lightblue};
+        text-align: center;
+        margin-bottom: 7px;
+        margin-right: 10px;
+    }
+
+    @media (min-width: 321px ){
+        margin: 0px 50px;
+        div {
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+    }   
 `
 
 function Hero() {
 	return (
         <Container>
-            <Image src={desk} alt="HostGator Left Desk" />
+            <ImageContainer><img style={{width: '100%'}} src={desk} alt="HostGator Left Desk" /></ImageContainer>
             <CenterText>
                 <MinorTitle>Hospedagem de Sites</MinorTitle>
                 <Title>Tenha uma hospedagem de sites estável e evite perder visitantes diariamente</Title>
-                <List>
-                    <li>99,9% de disponibilidade: seu site sempre no ar</li>
-                    <li>Suporte 24h, todos os dias</li>
-                    <li>Painel de Controle cPanel</li>
-                </List>
+                <ListContainer>
+                    <div>99,9% de disponibilidade: seu site sempre no ar</div>
+                    <div>Suporte 24h, todos os dias</div>
+                    <div>Painel de Controle cPanel</div>
+                </ListContainer>
             </CenterText>
-            <Image src={guy} alt="HostGator Right Guy" />
+            <ImageContainer><img style={{width: '100%'}} src={guy} alt="HostGator Right Guy" /></ImageContainer>
         </Container>
 	);
 }
