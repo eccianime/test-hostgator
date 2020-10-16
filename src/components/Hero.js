@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import deskImage from '../assets/images/desk.png';
 import guyImage from '../assets/images/guy.png';
+import waveImage from '../assets/images/wave.png';
 
 import checkIcon from '../assets/icons/check.png';
 import arrowIcon from '../assets/icons/arrow.png';
@@ -11,6 +12,7 @@ import colors from '../common/colors';
 
 
 const Container = styled.div`
+    position: relative;
     background: ${colors.blue};
     display: flex;
     flex: 1;
@@ -19,6 +21,19 @@ const Container = styled.div`
 
     @media (min-width: 321px ){
         padding-top: 95px;
+    }
+
+    &::after{
+        border-color: transparent;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-image: url(${waveImage});
+        background-repeat: no-repeat;
+        height: 40px;
+        content: '';
+        width: 100%;
+        background-size: 100% 100%;
     }
 `
 
@@ -62,7 +77,7 @@ const ImageContainer = styled.div`
     padding: 0px 50px;
     object-fit: contain;
 
-    @media (max-width: 768px ){
+    @media (max-width: 1024px ){
         display: none
     }
 `
@@ -110,11 +125,11 @@ function Hero() {
                     <div>99,9% de disponibilidade: seu site sempre no ar</div>
                     <div>Suporte 24h, todos os dias</div>
                     <div>Painel de Controle cPanel</div>
+                    <ArrowGoDown src={arrowIcon} style={{position: "absolute", zIndex: 1}} alt="Arrow Go Down" />
                 </ListContainer>
             </CenterText>
             <ImageContainer><img style={{width: '100%'}} src={guyImage} alt="HostGator Right Guy" /></ImageContainer>
         </Container>
-        <ArrowGoDown src={arrowIcon} alt="Arrow Go Down" />
         </>
 	);
 }
