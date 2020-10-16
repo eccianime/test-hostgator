@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import desk from '../assets/images/desk.png';
-import guy from '../assets/images/guy.png';
+import deskImage from '../assets/images/desk.png';
+import guyImage from '../assets/images/guy.png';
+
 import checkIcon from '../assets/icons/check.png';
+import arrowIcon from '../assets/icons/arrow.png';
+
 import colors from '../common/colors';
 
 
 const Container = styled.div`
-    background-image: linear-gradient( to bottom, ${colors.blue} 0%, ${colors.blue} 80%, ${colors.skyblue} 81%, ${colors.skyblue} 100% ) ;
+    background: ${colors.blue};
     display: flex;
     flex: 1;
     justiFy-content: space-between;
@@ -20,7 +23,7 @@ const Container = styled.div`
 `
 
 const CenterText = styled.div`
-    flex: 1;
+    flex: 1.5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +59,7 @@ const Title = styled.div`
 
 const ImageContainer = styled.div`
     flex: 1;
-    padding: 0px 25px;
+    padding: 0px 50px;
     object-fit: contain;
 
     @media (max-width: 768px ){
@@ -68,7 +71,7 @@ const ListContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0px 20px;
+    margin: 0px 20px 50px;
 
     div {
         font-size: 16px;
@@ -82,7 +85,7 @@ const ListContainer = styled.div`
     }
 
     @media (min-width: 321px ){
-        margin: 0px 50px;
+        margin: 0px 50px 80px;
         div {
             display: inline-block;
             margin-bottom: 15px;
@@ -90,10 +93,16 @@ const ListContainer = styled.div`
     }   
 `
 
+const ArrowGoDown = styled.img`
+    position: sticky;
+    bottom: 0px;
+`
+
 function Hero() {
 	return (
+        <>
         <Container>
-            <ImageContainer><img style={{width: '100%'}} src={desk} alt="HostGator Left Desk" /></ImageContainer>
+            <ImageContainer><img style={{width: '100%'}} src={deskImage} alt="HostGator Left Desk" /></ImageContainer>
             <CenterText>
                 <MinorTitle>Hospedagem de Sites</MinorTitle>
                 <Title>Tenha uma hospedagem de sites estável e evite perder visitantes diariamente</Title>
@@ -103,8 +112,10 @@ function Hero() {
                     <div>Painel de Controle cPanel</div>
                 </ListContainer>
             </CenterText>
-            <ImageContainer><img style={{width: '100%'}} src={guy} alt="HostGator Right Guy" /></ImageContainer>
+            <ImageContainer><img style={{width: '100%'}} src={guyImage} alt="HostGator Right Guy" /></ImageContainer>
         </Container>
+        <ArrowGoDown src={arrowIcon} alt="Arrow Go Down" />
+        </>
 	);
 }
 
