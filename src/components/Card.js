@@ -16,7 +16,8 @@ const Container = styled.div`
     background-color: ${colors.white};
     padding-top: 40px;
     padding-bottom: 35px;
-    display: inline-block;    
+    display: inline-block;
+    
 `
 
 const Title = styled.div`
@@ -85,10 +86,10 @@ const FeaturesContent = styled.div`
     }
 `
 
-const getMoneyFormat = number => parseFloat(number).toLocaleString('pt-BR');
+const getMoneyFormat = number => new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 } ).format(number);
 
 const Card = ({ product, priceOrder, months, payload, subscribePlan }) => (
-    <Container>
+    <Container name={product.name} >
         <img src={plan_a} alt={product.name} />
         <Title>{product.name}</Title>
         <PricesContainer>

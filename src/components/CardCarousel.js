@@ -25,8 +25,9 @@ const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
     
     const showCards = () => {
         const fetched = plans['shared'];
-        const products = ( fetched && fetched['products'] ) || [];
+        const products = ( fetched && fetched['products'] ) || []; 
         const items = Object.keys( products );
+        const acceptedPlans = [ 'Plano P', 'Plano M', 'Plano Turbo' ];
         return(
             items.map( item => {
                 const product = products[item];
@@ -39,7 +40,7 @@ const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
                     billingcycle: actualCycle,
                 }
                 return(
-                    cycle && actualCyclePlan &&
+                    cycle && actualCyclePlan && acceptedPlans.some( plan => plan === product.name ) &&
                     <Card key={item} product={product} priceOrder={priceOrder} months={months} payload={payload} subscribePlan={subscribePlan} />
                 )
             })
