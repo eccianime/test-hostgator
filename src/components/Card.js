@@ -23,6 +23,12 @@ const Container = styled.div`
     @media (min-width: 321px ){
         width: 330px;
     }
+
+    &:hover{
+        animation-name: pulse;
+        animation-duration: 2s;
+        animation-direction: alternate;
+    }
 `
 
 const Title = styled.div`
@@ -68,6 +74,13 @@ const Button = styled.button`
     @media (min-width: 321px ){
         width: 280px;
     }
+
+    &:hover{
+        animation-name: inverted-${ props => props.name === "Plano M" ? `blue` : `orange` };
+        animation-duration: 2s;
+        animation-direction: alternate;
+    }
+
 `
 const Badge = styled.div`
     background-color: ${colors.green};
