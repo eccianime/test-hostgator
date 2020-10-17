@@ -92,19 +92,29 @@ const Card = ({ product, priceOrder, months, payload, subscribePlan }) => (
         <img src={plan_a} alt={product.name} />
         <Title>{product.name}</Title>
         <PricesContainer>
-            <Text decoration='line-through'>R$ {getMoneyFormat(priceOrder)}</Text>
-            <Text bold>R$ {getMoneyFormat((priceOrder * .6).toFixed(2))}</Text>
-            <Text block>equivalente a</Text>
+            { 
+            months !== 1 && 
+                <>
+                    <Text decoration='line-through'>R$ {getMoneyFormat(priceOrder)}</Text>
+                    <Text bold>R$ {getMoneyFormat((priceOrder * .6).toFixed(2))}</Text>
+                    <Text block>equivalente a</Text>
+                </>
+            }
 
             <Text color={colors.blue} size='20px'>R$ </Text>
-            <Text color={colors.blue} bold size='35px'>{getMoneyFormat( (priceOrder / months).toFixed(2) )}</Text>
+            <Text color={colors.blue} bold size='35px'>{getMoneyFormat( ((priceOrder *.6) / months).toFixed(2) )}</Text>
             <Text color={colors.blue} size='20px'>/mês*</Text>
         </PricesContainer>
         <ContentContainer>
             <Button onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
             <Text bold size='15px' block>1 ano de Domínio Grátis <img src={infoIcon} alt='Info Icon'/></Text>
-            <Text color={colors.blue} size='14px'>economize R$ {getMoneyFormat((priceOrder * .4).toFixed(2))}</Text>
-            <Badge>40% OFF</Badge>
+            { 
+                months !== 1 && 
+                <>
+                    <Text color={colors.blue} size='14px'>economize R$ {getMoneyFormat((priceOrder * .4).toFixed(2))}</Text>
+                    <Badge>40% OFF</Badge>
+                </>
+            }
         </ContentContainer>
         <FeaturesContent>
             <Description block>Para 1 site</Description>
