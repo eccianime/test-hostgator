@@ -34,7 +34,7 @@ const Button = styled.a`
     position: absolute; 
     margin-right: -15px;
     margin-left: -15px;
-    top: 45%;
+    top: 34%;
     ${ props => props.position === 'left'? 'left: 0;' : 'right: 0;' }
 
     @media (min-width: 769px ){
@@ -49,16 +49,13 @@ const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
 
     let [ index, changeIndex ] = useState(0)
 
-    const show = increase =>{
-        let liEls = document.querySelectorAll('ul li');
-        let next = index + increase;
-        next = next === 3 ? 0 : next === -1 ? 2 : index + increase;
+    const goToSlide = number =>{
+        let liEls = document.querySelectorAll('#listcontainer li');
+        let next = index + number;
+        next = next === 3 ? 0 : next === -1 ? 2 : index + number;
         changeIndex( next );
         liEls[ next ].scrollIntoView({behavior: 'smooth', block: "center", inline: "center"});
-        setTimeout( ()=> {
-            liEls[ next ].scrollIntoView({behavior: 'smooth', block: "start", inline: "center"});
-        }, 800 )
-        
+        setTimeout( ()=> {liEls[ next ].scrollIntoView({behavior: 'smooth', block: "start", inline: "center"});}, 800 )
     }
     
     const showCards = () => {
@@ -86,10 +83,10 @@ const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
     }
 	return (
         <Container id='plans'>
-            <ListContainer>
+            <ListContainer id='listcontainer'>
             { showCards() }
-            <Button position="left" onClick={()=>show(-1)}></Button>
-            <Button position="right" onClick={()=>show(+1)}></Button>
+            <Button position="left" onClick={()=>goToSlide(-1)}></Button>
+            <Button position="right" onClick={()=>goToSlide(+1)}></Button>
             </ListContainer>
         </Container>
 	);

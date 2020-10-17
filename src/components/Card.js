@@ -57,14 +57,17 @@ const Button = styled.button`
     background-color: ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.mediumblue}` };
     border-radius: 25px;
     padding: 10px 0px;
-    width: 280px;
-    max-width: 85%;
+    width: 230px;
     border: none;
     font-size: 22px;
     font-weight: 700;
     color: ${colors.white};
     margin-bottom: 30px;
     cursor: pointer;
+
+    @media (min-width: 321px ){
+        width: 280px;
+    }
 `
 const Badge = styled.div`
     background-color: ${colors.green};
