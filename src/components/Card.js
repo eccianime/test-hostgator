@@ -57,6 +57,7 @@ const Text = styled.span`
 const Description = styled(Text)`
     text-align: left;
     font-size: 16px;
+    ${ props => props.dottedUnder && `text-decoration: underline dotted ${colors.underlineblue};` };
 `
 
 const Button = styled.button`
@@ -139,9 +140,9 @@ const Card = ({ name, priceOrder, months, payload, subscribePlan }) => (
             }
         </ContentContainer>
         <FeaturesContent>
-            <Description block>Para 1 site</Description>
+            <Description block dottedUnder>{name === "Plano P" ? 'Para 1 site': 'Sites Ilimitados'}</Description>
             <Description block><Description bold>100 GB</Description>de Armazenamento</Description>
-            <Description block>Contas de E-mail <Description bold>Ilimitadas</Description></Description>
+            <Description block dottedUnder>Contas de E-mail <Description bold dottedUnder>Ilimitadas</Description></Description>
             <Description block>Criador de Sites <Description bold decoration='underline'>Grátis</Description></Description>
             <Description block>Certificado SSL <Description bold>Grátis</Description> (https)</Description>
         </FeaturesContent>
