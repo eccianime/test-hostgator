@@ -6,6 +6,10 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
     }
 
+    *:focus{
+      outline: none;
+    }
+
     html {
         scroll-behavior: smooth;
     }
