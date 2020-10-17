@@ -12,7 +12,7 @@ import Card from './Card';
 
 const Container = styled.div`
     text-align: center;
-    margin: 0px 25px 30px;
+    margin: 0px 25px;
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
@@ -41,7 +41,7 @@ const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
                 }
                 return(
                     cycle && actualCyclePlan && acceptedPlans.some( plan => plan === product.name ) &&
-                    <Card key={item} product={product} priceOrder={priceOrder} months={months} payload={payload} subscribePlan={subscribePlan} />
+                    <Card key={item} name={product.name} priceOrder={priceOrder} months={months} payload={payload} subscribePlan={subscribePlan} />
                 )
             })
         )

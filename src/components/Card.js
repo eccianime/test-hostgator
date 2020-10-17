@@ -18,8 +18,8 @@ const Container = styled.div`
     padding-bottom: 35px;
     display: inline-block;
     border-top: 10px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
-    border-bottom: 10px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
-    
+    border-bottom: 5px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
+    margin-bottom: 15px;
 `
 
 const Title = styled.div`
@@ -90,10 +90,10 @@ const FeaturesContent = styled.div`
 
 const getMoneyFormat = number => new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2 } ).format(number);
 
-const Card = ({ product, priceOrder, months, payload, subscribePlan }) => (
-    <Container name={product.name} >
-        <img src={plan_a} alt={product.name} />
-        <Title>{product.name}</Title>
+const Card = ({ name, priceOrder, months, payload, subscribePlan }) => (
+    <Container name={name} >
+        <img src={name === "Plano P" ? plan_a : name === "Plano M" ? plan_b : plan_c  } alt={name} />
+        <Title>{name}</Title>
         <PricesContainer>
             { 
             months !== 1 && 
@@ -109,7 +109,7 @@ const Card = ({ product, priceOrder, months, payload, subscribePlan }) => (
             <Text color={colors.blue} size='20px'>/mês*</Text>
         </PricesContainer>
         <ContentContainer>
-            <Button name={product.name} onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
+            <Button name={name} onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
             <Text bold size='15px' block>1 ano de Domínio Grátis <img src={infoIcon} alt='Info Icon'/></Text>
             { 
                 months !== 1 && 
