@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import { CHANGE_ACTUAL_PLAN } from '../actions/types';
 import colors from '../common/colors';
 import check_off from '../assets/icons/check_off.png';
 import check_on from '../assets/icons/check_on.png';
@@ -10,6 +11,7 @@ const Container = styled.div`
     width: 100%;
     text-align: center;
     margin: 15px 0px 50px;
+    
 `
 
 const Text = styled.div`
@@ -79,7 +81,7 @@ const stateToProps = state => state;
 
 const dispatchToProps = dispatch => ({
     changePlan: (actualPlan, actualCycle) =>{
-        dispatch({ type: 'CHANGE_ACTUAL_PLAN', actualPlan, actualCycle })
+        dispatch({ type: CHANGE_ACTUAL_PLAN, actualPlan, actualCycle })
     }
 })
 

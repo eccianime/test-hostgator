@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -7,6 +7,9 @@ import plan_a from '../assets/icons/plan_a.png';
 import plan_b from '../assets/icons/plan_b.png';
 import plan_c from '../assets/icons/plan_c.png';
 import infoIcon from '../assets/icons/info.png';
+import { getPlans, subscribePlan } from '../actions/creators';
+
+import Carousel from './Carousel';
 
 const Container = styled.div`
     text-align: center;
@@ -49,6 +52,11 @@ const Text = styled.span`
     color: ${ props => props.color ? props.color : colors.black };
 `
 
+const Description = styled(Text)`
+    text-align: left;
+    font-size: 16px;
+`
+
 const Button = styled.button`
     background-color: ${colors.mediumblue};
     border-radius: 25px;
@@ -60,6 +68,7 @@ const Button = styled.button`
     font-weight: 700;
     color: ${colors.white};
     margin-bottom: 30px;
+    cursor: pointer;
 `
 const Badge = styled.div`
     background-color: ${colors.green};
@@ -86,128 +95,53 @@ const FeaturesContent = styled.div`
     }
 `
 
-function CardCarousel({ actualCycle }) {
-    const staticData = 
-    { "shared": 
-    { "products": 
-        { 
-        "product_5": 
-            { "name": "Plano P", "id": 5, "cycle": 
-                { "monthly": 
-                    { "priceRenew": "24.19", "priceOrder": "24.19", "months": 1 }
-                , "semiannually": 
-                    { "priceRenew": "128.34", "priceOrder": "128.34", "months": 6 }
-                , "biennially": 
-                    { "priceRenew": "393.36", "priceOrder": "393.36", "months": 24 }
-                , "triennially": 
-                    { "priceRenew": "561.13", "priceOrder": "561.13", "months": 36 }
-                , "quarterly": 
-                    { "priceRenew": "67.17", "priceOrder": "67.17", "months": 3 }
-                , "annually": 
-                    { "priceRenew": "220.66", "priceOrder": "220.66", "months": 12 }
-                }
-            }, 
-        "product_6": 
-            { "name": "Plano M", "id": 6, "cycle": 
-                { "monthly": 
-                    { "priceRenew": "29.69", "priceOrder": "29.69", "months": 1 }
-                , "semiannually": 
-                    { "priceRenew": "159.54", "priceOrder": "159.54", "months": 6 }
-                , "biennially": 
-                    { "priceRenew": "532.56", "priceOrder": "532.56", "months": 24 }
-                , "triennially": 
-                    { "priceRenew": "764.22", "priceOrder": "764.22", "months": 36 }
-                , "quarterly": 
-                    { "priceRenew": "82.77", "priceOrder": "82.77", "months": 3 }
-                , "annually": 
-                    { "priceRenew": "286.66", "priceOrder": "286.66", "months": 12 }
-                }
-            }, 
-            "product_7": 
-                { "name": "Plano Business", "id": 7, "cycle": 
-                    { "monthly": 
-                    { "priceRenew": "44.99", "priceOrder": "44.99", "months": 1 }
-                , "semiannually": 
-                        { "priceRenew": "257.94", "priceOrder": "257.94", "months": 6 }
-                , "biennially": 
-                        { "priceRenew": "983.76", "priceOrder": "983.76", "months": 24 }
-                , "triennially": 
-                        { "priceRenew": "1439.64", "priceOrder": "1439.64", "months": 36 }
-                , "quarterly": 
-                        { "priceRenew": "131.97", "priceOrder": "131.97", "months": 3 }
-                , "annually": 
-                        { "priceRenew": "503.88", "priceOrder": "503.88", "months": 12 }
-                }
-            }, 
-            "product_329": 
-                { "name": "Empreendedor", "id": 329 }
-            , 
-            "product_332": 
-                { "name": "Negócios", "id": 332 }
-            , "product_335": 
-                { "name": "Plano Turbo", "id": 335, "cycle": 
-                    { "monthly": 
-                        { "priceRenew": "47.24", "priceOrder": "47.24", "months": 1 }
-                    , "semiannually": 
-                        { "priceRenew": "270.84", "priceOrder": "270.84", "months": 6 }
-                    , "biennially": 
-                        { "priceRenew": "1032.95", "priceOrder": "1032.95", "months": 24 }
-                    , "triennially": 
-                        { "priceRenew": "1511.62", "priceOrder": "1511.62", "months": 36 }
-                    , "quarterly": 
-                        { "priceRenew": "138.57", "priceOrder": "138.57", "months": 3 }
-                    , "annually": 
-                        { "priceRenew": "529.07", "priceOrder": "529.07", "months": 12 }
-                    }
-                }
-            , "product_341": 
-                { "name": "Presença Digital", "id": 341, "cycle": 
-                    { "monthly": 
-                        { "priceRenew": "14.99", "priceOrder": "14.99", "months": 1 }
-                    }
-                }
-            }
-        }
-    }
-
+const CardCarousel = ({ actualCycle, plans, getPlans, subscribePlan }) =>{
+    useEffect( ()=>{
+        getPlans()
+    }, [ getPlans ] )
+    
     const getMoneyFormat = number => parseFloat(number).toLocaleString('pt-BR');
-
     const showCards = () => {
-        let { products } = staticData.shared;
-        const items = Object.keys(products);
-
+        const fetched = plans['shared'];
+        const products = ( fetched && fetched['products'] ) || [];
+        const items = Object.keys( products );
         return(
             items.map( item => {
-                let product = products[item];
+                const product = products[item];
+                const cycle = product['cycle'] || false;
+                const actualCyclePlan = cycle[actualCycle] || false;
+                const priceOrder = actualCyclePlan['priceOrder'] || false;
+                const months = actualCyclePlan['months'] || false;
+                const payload = {
+                    pid: product.id,
+                    billingcycle: actualCycle,
+                }
                 return(
-                    product['cycle'] && 
-                    product['cycle'][actualCycle] &&
+                    cycle && actualCyclePlan &&
                     <Card key={item}>
-                        <img src={plan_a} alt='Plano P' />
+                        <img src={plan_a} alt={product.name} />
                         <Title>{product.name}</Title>
                         <PricesContainer>
-                            <Text decoration='line-through'>R$ {getMoneyFormat(product['cycle'][actualCycle]['priceOrder'])}</Text>
-                            <Text bold>R$ {getMoneyFormat((product['cycle'][actualCycle]['priceOrder'] * .6).toFixed(2))}</Text>
+                            <Text decoration='line-through'>R$ {getMoneyFormat(priceOrder)}</Text>
+                            <Text bold>R$ {getMoneyFormat((priceOrder * .6).toFixed(2))}</Text>
                             <Text block>equivalente a</Text>
 
                             <Text color={colors.blue} size='20px'>R$ </Text>
-                            <Text color={colors.blue} bold size='35px'>{
-                                getMoneyFormat( (product['cycle'][actualCycle]['priceOrder'] / product['cycle'][actualCycle]['months']).toFixed(2) )
-                                }</Text>
+                            <Text color={colors.blue} bold size='35px'>{getMoneyFormat( (priceOrder / months).toFixed(2) )}</Text>
                             <Text color={colors.blue} size='20px'>/mês*</Text>
                         </PricesContainer>
                         <ContentContainer>
-                            <Button>Contrate Agora</Button>
+                            <Button onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
                             <Text bold size='15px' block>1 ano de Domínio Grátis <img src={infoIcon} alt='Info Icon'/></Text>
-                            <Text color={colors.blue} size='14px'>economize R$ {getMoneyFormat((product['cycle'][actualCycle]['priceOrder'] * .4).toFixed(2))}</Text>
+                            <Text color={colors.blue} size='14px'>economize R$ {getMoneyFormat((priceOrder * .4).toFixed(2))}</Text>
                             <Badge>40% OFF</Badge>
                         </ContentContainer>
                         <FeaturesContent>
-                            <Text size='16px' block align='left'>Para 1 site</Text>
-                            <Text size='16px' block align='left'><Text size='16px' bold>100 GB</Text>de Armazenamento</Text>
-                            <Text size='16px' block align='left'>Contas de E-mail <Text size='16px' bold>Ilimitadas</Text></Text>
-                            <Text size='16px' block align='left'>Criador de Sites <Text size='16px' bold decoration='underline'>Grátis</Text></Text>
-                            <Text size='16px' block align='left'>Certificado SSL <Text size='16px' bold>Grátis</Text> (https)</Text>
+                            <Description block>Para 1 site</Description>
+                            <Description block><Description bold>100 GB</Description>de Armazenamento</Description>
+                            <Description block>Contas de E-mail <Description bold>Ilimitadas</Description></Description>
+                            <Description block>Criador de Sites <Description bold decoration='underline'>Grátis</Description></Description>
+                            <Description block>Certificado SSL <Description bold>Grátis</Description> (https)</Description>
                         </FeaturesContent>
                     </Card>
                 )
@@ -215,12 +149,22 @@ function CardCarousel({ actualCycle }) {
         )
     }
 	return (
-        <Container>
-            { showCards() }
+        <Container id='plans'>
+            <Carousel />
+            { /*showCards() */}
         </Container>
 	);
 }
 
 const stateToProps = state => state;
 
-export default connect( stateToProps )(CardCarousel);
+const dispatchToProps = dispatch => ({
+    getPlans: () => {
+        dispatch( getPlans() )
+    },
+    subscribePlan: payload => {
+        dispatch( subscribePlan( payload ) )
+    }
+})
+
+export default connect( stateToProps, dispatchToProps )(CardCarousel);

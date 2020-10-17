@@ -113,7 +113,7 @@ const ArrowGoDown = styled.img`
     bottom: 0px;
 `
 
-function Hero() {
+const Hero = () => {
 	return (
         <>
         <Container>
@@ -125,7 +125,7 @@ function Hero() {
                     <div>99,9% de disponibilidade: seu site sempre no ar</div>
                     <div>Suporte 24h, todos os dias</div>
                     <div>Painel de Controle cPanel</div>
-                    <ArrowGoDown src={arrowIcon} style={{position: "absolute", zIndex: 1}} alt="Arrow Go Down" />
+                    <ArrowGoDown onClick={ ()=> document.getElementById('plans').scrollIntoView() } src={arrowIcon} style={{position: "absolute", zIndex: 1, cursor: "pointer"}} alt="Arrow Go Down" />
                 </ListContainer>
             </CenterText>
             <ImageContainer><img style={{width: '100%'}} src={guyImage} alt="HostGator Right Guy" /></ImageContainer>

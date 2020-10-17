@@ -1,0 +1,2 @@
+export const CHANGE_ACTUAL_PLAN = 'CHANGE_ACTUAL_PLAN';
+export const GET_PLANS = 'GET_PLANS';

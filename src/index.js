@@ -4,13 +4,7 @@ import App from './App';
 import GlobalStyle from "./common/globalStyle";
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import planReducer from './reducers/planReducer';
-
-const store = createStore(
-  planReducer, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>

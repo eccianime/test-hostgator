@@ -17,12 +17,10 @@ const Container = styled.div`
     }
 `
 
-function Header() {
-	return (
-        <Container>
-            <img src={logo} alt="HostGator Logo" />
-        </Container>
-	);
-}
+const Header = () =>(
+    <Container>
+        <img src={logo} alt="HostGator Logo" />
+    </Container>
+)
 
 export default Header;
