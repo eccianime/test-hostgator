@@ -17,6 +17,8 @@ const Container = styled.div`
     padding-top: 40px;
     padding-bottom: 35px;
     display: inline-block;
+    border-top: 10px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
+    border-bottom: 10px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
     
 `
 
@@ -49,7 +51,7 @@ const Description = styled(Text)`
 `
 
 const Button = styled.button`
-    background-color: ${colors.mediumblue};
+    background-color: ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.mediumblue}` };
     border-radius: 25px;
     padding: 10px 0px;
     width: 280px;
@@ -107,7 +109,7 @@ const Card = ({ product, priceOrder, months, payload, subscribePlan }) => (
             <Text color={colors.blue} size='20px'>/mês*</Text>
         </PricesContainer>
         <ContentContainer>
-            <Button onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
+            <Button name={product.name} onClick={ ()=> subscribePlan( payload ) } >Contrate Agora</Button>
             <Text bold size='15px' block>1 ano de Domínio Grátis <img src={infoIcon} alt='Info Icon'/></Text>
             { 
                 months !== 1 && 
