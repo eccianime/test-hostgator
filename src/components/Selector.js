@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import colors from '../common/colors';
@@ -50,21 +51,20 @@ const Label = styled.label`
     background: url(${check_off}) 10px center no-repeat;
 `
 
-function Header() {
+function Selector({actualPlan, changePlan}) {
     const plans = [
-        { id: '3years', name: "3 anos" },
-        { id: '1year', name: "1 ano" },
-        { id: '1month', name: "1 mês" }
+        { id: '3years', name: "3 anos", cycle: 'triennially' },
+        { id: '1year', name: "1 ano", cycle: 'annually' },
+        { id: '1month', name: "1 mês", cycle: 'monthly' }
     ]
     const showPlans = () => (
         plans.map( (plan, index) => (
             <RadioContainer key={`plan-${index}`}>
-                <Input type="radio" name="option" id={plan.id} onChange={ () => changeOption(index) } checked={selected === index} />
+                <Input type="radio" name="option" id={plan.id} onChange={ () => changePlan(index, plan.cycle) } checked={actualPlan === index} />
                 <Label htmlFor={plan.id}>{plan.name}</Label>
             </RadioContainer>
         ))
     )
-    const [ selected, changeOption ] = useState(0)
 	return (
         <Container>
             <Text>Quero pagar a cada:</Text>
@@ -75,4 +75,12 @@ function Header() {
 	);
 }
 
-export default Header;
+const stateToProps = state => state;
+
+const dispatchToProps = dispatch => ({
+    changePlan: (actualPlan, actualCycle) =>{
+        dispatch({ type: 'CHANGE_ACTUAL_PLAN', actualPlan, actualCycle })
+    }
+})
+
+export default connect( stateToProps, dispatchToProps )(Selector);
