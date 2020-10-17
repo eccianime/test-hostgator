@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logo from '../assets/images/logo.png';
 import colors from '../common/colors';
 
 const Text = styled.div`

@@ -7,11 +7,10 @@ import plan_b from '../assets/icons/plan_b.png';
 import plan_c from '../assets/icons/plan_c.png';
 
 import infoIcon from '../assets/icons/info.png';
-import { subscribePlan } from '../actions/creators';
 
 const Container = styled.div`
     flex: 1;
-    max-width: 330px;
+    width: 290px;
     margin-right: 10px;
     background-color: ${colors.white};
     padding-top: 40px;
@@ -20,6 +19,10 @@ const Container = styled.div`
     border-top: 10px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
     border-bottom: 5px solid ${ props => props.name === "Plano M" ? `${colors.orange}` : `${colors.skyblue}` };
     margin-bottom: 15px;
+
+    @media (min-width: 321px ){
+        width: 330px;
+    }
 `
 
 const Title = styled.div`
