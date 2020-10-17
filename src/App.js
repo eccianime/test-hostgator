@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Selector from './components/Selector';
+import CardCarousel from './components/CardCarousel';
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 			<Header />
 			<Hero />
 			<Selector />
+			<CardCarousel />
 		</>
 	);
 }

@@ -51,23 +51,25 @@ const Label = styled.label`
 `
 
 function Header() {
-    const [ selected, changeOption ] = useState(1)
+    const plans = [
+        { id: '3years', name: "3 anos" },
+        { id: '1year', name: "1 ano" },
+        { id: '1month', name: "1 mês" }
+    ]
+    const showPlans = () => (
+        plans.map( (plan, index) => (
+            <RadioContainer key={`plan-${index}`}>
+                <Input type="radio" name="option" id={plan.id} onChange={ () => changeOption(index) } checked={selected === index} />
+                <Label htmlFor={plan.id}>{plan.name}</Label>
+            </RadioContainer>
+        ))
+    )
+    const [ selected, changeOption ] = useState(0)
 	return (
         <Container>
             <Text>Quero pagar a cada:</Text>
             <OptionsContainer>
-                <RadioContainer>
-                    <Input type="radio" name="option" id="3years" onChange={ () => changeOption(1) } checked={selected === 1} />
-                    <Label htmlFor='3years'>3 anos</Label>
-                </RadioContainer>
-                <RadioContainer>
-                    <Input type="radio" name="option" id="1year" onChange={ () => changeOption(2) } checked={selected === 2} />
-                    <Label htmlFor='1year'>1 ano</Label>
-                </RadioContainer>
-                <RadioContainer>
-                    <Input type="radio" name="option" id="1month" onChange={ () => changeOption(3) } checked={selected === 3} />
-                    <Label htmlFor='1month'>1 mês</Label>
-                </RadioContainer>
+                { showPlans() }
             </OptionsContainer>
         </Container>
 	);
