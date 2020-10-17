@@ -36,6 +36,13 @@ const GlobalStyle = createGlobalStyle`
         100% {  scroll-snap-align: center;      }
     }
 
+    *::-webkit-scrollbar {
+       width: 0;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
 `
 
 export default GlobalStyle;
